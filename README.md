@@ -66,14 +66,6 @@ Aplikasi ini menggunakan tiga tabel database yang saling berelasi:
 
 ---
 
-## Dokumentasi & Showcase Tambahan
-
-Di dalam repositori ini, telah disediakan berkas HTML untuk keperluan presentasi dan dokumentasi tugas:
-
-1. **laporan_proyek.html**: Dokumen laporan terstruktur berisi deskripsi lengkap, skema basis data, dan arsitektur pengembangan untuk diserahkan sebagai tugas.
-2. **index.html**: Halaman *UI Showcase* interaktif premium dengan desain mockup 3D iPhone 15 Pro yang dinamis. Halaman ini menampilkan tiga layar utama aplikasi (Dashboard, Card/QR, dan Rewards) dengan efek kemiringan (*tilt*) dinamis dan animasi angkat (*lift*) saat disorot kursor (*hover*).
-
----
 
 ## Cara Menjalankan Aplikasi
 
