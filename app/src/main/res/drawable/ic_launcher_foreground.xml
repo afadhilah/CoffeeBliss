@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Steam lines -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M46,30 c-1,-4 3,-5 2,-9 M54,30 c-1,-4 3,-5 2,-9 M62,30 c-1,-4 3,-5 2,-9" />
+    <!-- Outer cup body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34,40 h40 c0,0 0,16 -6,22 c-5,5 -14,5 -19,5 c-6,0 -15,-6 -15,-27" />
+    <!-- Handle -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M74,46 h7 c3,0 5,2 5,5 v4 c0,3 -2,5 -5,5 h-7" />
+    <!-- Plate / Saucer -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M28,74 h52" />
+</vector>

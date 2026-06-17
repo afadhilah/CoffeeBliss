@@ -1,0 +1,57 @@
+name: Build APK on Push
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+      - '**'
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Accept Android Licenses
+        run: |
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+        continue-on-error: true
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Upload Debug APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk-${{ github.run_number }}
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 7
+
+      - name: Build Report
+        if: always()
+        run: |
+          echo "## Build Report 📱"
+          echo "**Build Number**: ${{ github.run_number }}"
+          echo "**Branch**: ${{ github.ref_name }}"
+          echo "**Commit**: ${{ github.sha }}"
+          echo ""
+          echo "✅ Debug APK built successfully"
+          echo "📦 Artifact: app-debug.apk"
