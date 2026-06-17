@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Bliss - UI Preview Showcase</title>
+    <!-- Google Fonts for premium typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base Reset & Core Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #E6E8EB; /* Premium neutral light gray background from reference image */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        /* Header Title (Subtle & Clean) */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #2F1E19;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: #6B7280;
+            font-weight: 400;
+        }
+
+        /* Showcase Grid Container */
+        .showcase-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Realistic Phone Mockup Shell */
+        .phone-mockup {
+            position: relative;
+            width: 320px;
+            height: 680px;
+            background: #000000;
+            border: 11px solid #1c1c1e; /* Deep metallic space gray border */
+            border-radius: 48px;
+            box-shadow: 
+                0 4px 10px rgba(0, 0, 0, 0.05),
+                0 30px 70px -10px rgba(0, 0, 0, 0.15),
+                0 18px 40px -15px rgba(0, 0, 0, 0.2),
+                inset 0 0 3px 2px rgba(255, 255, 255, 0.12); /* Subtle metallic reflection */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Specific screen tilts */
+        .phone-1 {
+            transform: rotate(-3deg) translateY(0);
+        }
+        .phone-2 {
+            transform: rotate(3deg) translateY(12px);
+        }
+        .phone-3 {
+            transform: rotate(-3deg) translateY(6px);
+        }
+
+        /* Lift and Depth on Hover */
+        .phone-mockup:hover {
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.08),
+                0 45px 85px -10px rgba(0, 0, 0, 0.25),
+                0 30px 50px -15px rgba(0, 0, 0, 0.3),
+                inset 0 0 3px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .phone-1:hover {
+            transform: rotate(-0.5deg) translateY(-20px) scale(1.03);
+        }
+        .phone-2:hover {
+            transform: rotate(0.5deg) translateY(-8px) scale(1.03);
+        }
+        .phone-3:hover {
+            transform: rotate(-0.5deg) translateY(-14px) scale(1.03);
+        }
+
+        /* Phone Screen Content Container */
+        .screen-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #F8FAFC;
+            border-radius: 37px;
+            overflow: hidden;
+        }
+
+        /* Dynamic Island / Notch */
+        .dynamic-island {
+            position: absolute;
+            top: 8px; /* Slightly higher to fit perfectly inside the 40px status bar */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 24px;
+            background-color: #000000;
+            border-radius: 12px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Status Bar Text & Icons */
+        .status-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9;
+            background-color: #FFFFFF; /* White background behind status bar */
+            color: #000000; /* Dark status indicators by default */
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            pointer-events: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border under status bar */
+        }
+
+        /* Force status bar color scheme if needed */
+        .phone-mockup.light-status-bar .status-bar {
+            color: #000000; /* Maintain black text on white background */
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-icon {
+            display: inline-block;
+            height: 9.5px;
+        }
+
+        /* Screen Screenshot Target */
+        .screen-image {
+            width: 100%;
+            height: auto; /* Scale naturally based on width to prevent zoom-in/out */
+            margin-top: 40px; /* Push exactly below the 40px status bar */
+            display: block;
+        }
+
+        /* Fallback placeholder style if screenshot doesn't exist yet */
+        .placeholder-screen {
+            width: 100%;
+            height: calc(100% - 40px); /* Adjust height */
+            margin-top: 40px; /* Push below status bar */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            text-align: center;
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+            color: #64748B;
+            border-radius: 0 0 37px 37px;
+        }
+
+        .placeholder-screen-2 {
+            background: linear-gradient(135deg, #FAF7F2 0%, #EADEC9 100%);
+            color: #78350F;
+        }
+
+        .placeholder-screen-3 {
+            background: linear-gradient(135deg, #F1F5F9 0%, #CBD5E1 100%);
+            color: #334155;
+        }
+
+        .placeholder-screen h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .placeholder-screen p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            line-height: 1.3;
+        }
+
+        .placeholder-screen-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        /* Home Indicator Line */
+        .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 5px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+        /* Force home indicator color scheme */
+        .phone-mockup.light-status-bar .home-indicator {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            body {
+                padding: 24px 10px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .showcase-container {
+                gap: 24px;
+            }
+            .phone-mockup {
+                width: 280px;
+                height: 640px;
+                border-radius: 40px;
+            }
+            .screen-container {
+                border-radius: 29px;
+            }
+            .screen-image {
+                border-radius: 29px;
+            }
+            .dynamic-island {
+                width: 80px;
+                height: 22px;
+                top: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Subtle Header -->
+    <div class="header">
+        <h1>Coffee Bliss UI Showcase</h1>
+        <p>Preview rancangan antarmuka digital keanggotaan pada perangkat mobile</p>
+    </div>
+
+    <!-- Main Showcase Container -->
+    <div class="showcase-container">
+
+        <!-- Screen 1: Dashboard / Home -->
+        <div class="phone-mockup phone-1">
+            <div class="screen-container">
+                <!-- Status Bar Overlay -->
+                <div class="status-bar">
+                    <span>9:41</span>
+                    <div class="status-icons">
+                        <!-- Signal strength -->
+                        <svg class="status-icon" viewBox="0 0 18 10" width="17" fill="currentColor">
+                            <rect x="0" y="7" width="3" height="3" rx="0.5"/>
+                            <rect x="4" y="5" width="3" height="5" rx="0.5"/>
+                            <rect x="8" y="3" width="3" height="7" rx="0.5"/>
+                            <rect x="12" y="0" width="3" height="10" rx="0.5"/>
+                        </svg>
+                        <!-- Wifi icon -->
+                        <svg class="status-icon" viewBox="0 0 16 12" width="15" fill="currentColor">
+                            <path d="M8 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6.5C5.8 5.5 3.3 6.3 1.5 7.8L0 6.2C2.3 4.3 5.3 3.3 8 3.3s5.7 1 8 2.9l-1.5 1.6C12.7 6.3 10.2 5.5 8 5.5zm0-4.5C4.7 1 1.8 2.2 0 4l1.5 1.6C3.2 3.8 5.5 3 8 3s4.8.8 6.5 2.6L16 4C14.2 2.2 11.3 1 8 1z"/>
+                        </svg>
+                        <!-- Battery -->
+                        <svg class="status-icon" viewBox="0 0 22 11" width="20" fill="currentColor">
+                            <rect x="0" y="0" width="18" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1"/>
+                            <rect x="2" y="2" width="14" height="7" rx="1.5"/>
+                            <rect x="19" y="3.5" width="2" height="4" rx="1"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Dynamic Island overlay -->
+                <div class="dynamic-island"></div>
+
+                <!-- Screen Screenshot Image -->
+                <img src="screen1.jpg" alt="Layar Beranda / Dashboard" class="screen-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                <!-- Dynamic Elegant Fallback Placeholder (if image not found) -->
+                <div class="placeholder-screen placeholder-screen-2" style="display: none;">
+                    <div class="placeholder-screen-icon">☕</div>
+                    <h2>Layar Beranda</h2>
+                    <p>Tempatkan screenshot menu utama / dashboard di sini sebagai <strong>screen1.png</strong></p>
+                </div>
+
+                <!-- Home Indicator Overlay -->
+                <div class="home-indicator"></div>
+            </div>
+        </div>
+
+        <!-- Screen 2: Member Card & QR -->
+        <div class="phone-mockup phone-2">
+            <div class="screen-container">
+                <!-- Status Bar Overlay -->
+                <div class="status-bar">
+                    <span>9:41</span>
+                    <div class="status-icons">
+                        <!-- Signal strength -->
+                        <svg class="status-icon" viewBox="0 0 18 10" width="17" fill="currentColor">
+                            <rect x="0" y="7" width="3" height="3" rx="0.5"/>
+                            <rect x="4" y="5" width="3" height="5" rx="0.5"/>
+                            <rect x="8" y="3" width="3" height="7" rx="0.5"/>
+                            <rect x="12" y="0" width="3" height="10" rx="0.5"/>
+                        </svg>
+                        <!-- Wifi icon -->
+                        <svg class="status-icon" viewBox="0 0 16 12" width="15" fill="currentColor">
+                            <path d="M8 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6.5C5.8 5.5 3.3 6.3 1.5 7.8L0 6.2C2.3 4.3 5.3 3.3 8 3.3s5.7 1 8 2.9l-1.5 1.6C12.7 6.3 10.2 5.5 8 5.5zm0-4.5C4.7 1 1.8 2.2 0 4l1.5 1.6C3.2 3.8 5.5 3 8 3s4.8.8 6.5 2.6L16 4C14.2 2.2 11.3 1 8 1z"/>
+                        </svg>
+                        <!-- Battery -->
+                        <svg class="status-icon" viewBox="0 0 22 11" width="20" fill="currentColor">
+                            <rect x="0" y="0" width="18" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1"/>
+                            <rect x="2" y="2" width="14" height="7" rx="1.5"/>
+                            <rect x="19" y="3.5" width="2" height="4" rx="1"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Dynamic Island overlay -->
+                <div class="dynamic-island"></div>
+
+                <!-- Screen Screenshot Image -->
+                <img src="screen2.jpg" alt="Kartu Member Digital & QR Code" class="screen-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                <!-- Dynamic Elegant Fallback Placeholder (if image not found) -->
+                <div class="placeholder-screen" style="display: none;">
+                    <div class="placeholder-screen-icon">💳</div>
+                    <h2>Digital Membership Card</h2>
+                    <p>Tempatkan screenshot kartu digital & QR Code di sini sebagai <strong>screen2.png</strong></p>
+                </div>
+
+                <!-- Home Indicator Overlay -->
+                <div class="home-indicator"></div>
+            </div>
+        </div>
+
+        <!-- Screen 3: Rewards & Point Redeem -->
+        <div class="phone-mockup phone-3">
+            <div class="screen-container">
+                <!-- Status Bar Overlay -->
+                <div class="status-bar">
+                    <span>9:41</span>
+                    <div class="status-icons">
+                        <!-- Signal strength -->
+                        <svg class="status-icon" viewBox="0 0 18 10" width="17" fill="currentColor">
+                            <rect x="0" y="7" width="3" height="3" rx="0.5"/>
+                            <rect x="4" y="5" width="3" height="5" rx="0.5"/>
+                            <rect x="8" y="3" width="3" height="7" rx="0.5"/>
+                            <rect x="12" y="0" width="3" height="10" rx="0.5"/>
+                        </svg>
+                        <!-- Wifi icon -->
+                        <svg class="status-icon" viewBox="0 0 16 12" width="15" fill="currentColor">
+                            <path d="M8 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6.5C5.8 5.5 3.3 6.3 1.5 7.8L0 6.2C2.3 4.3 5.3 3.3 8 3.3s5.7 1 8 2.9l-1.5 1.6C12.7 6.3 10.2 5.5 8 5.5zm0-4.5C4.7 1 1.8 2.2 0 4l1.5 1.6C3.2 3.8 5.5 3 8 3s4.8.8 6.5 2.6L16 4C14.2 2.2 11.3 1 8 1z"/>
+                        </svg>
+                        <!-- Battery -->
+                        <svg class="status-icon" viewBox="0 0 22 11" width="20" fill="currentColor">
+                            <rect x="0" y="0" width="18" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1"/>
+                            <rect x="2" y="2" width="14" height="7" rx="1.5"/>
+                            <rect x="19" y="3.5" width="2" height="4" rx="1"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Dynamic Island overlay -->
+                <div class="dynamic-island"></div>
+
+                <!-- Screen Screenshot Image -->
+                <img src="screen3.jpg" alt="Layar Penukaran Rewards" class="screen-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                <!-- Dynamic Elegant Fallback Placeholder (if image not found) -->
+                <div class="placeholder-screen placeholder-screen-3" style="display: none;">
+                    <div class="placeholder-screen-icon">🎁</div>
+                    <h2>Redeem Rewards</h2>
+                    <p>Tempatkan screenshot pilihan menu hadiah di sini sebagai <strong>screen3.png</strong></p>
+                </div>
+
+                <!-- Home Indicator Overlay -->
+                <div class="home-indicator"></div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
